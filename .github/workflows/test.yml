@@ -1,0 +1,15 @@
+name: Tests
+
+on:
+  - push
+  - pull_request
+
+# hello
+jobs:
+  alpine:
+    runs-on: ubuntu-latest
+    container: alpine:3.12
+    steps:
+      - uses: actions/checkout@v2
+      - run: apk update && apk add meson wayland-dev musl-dev wayland-protocols gcc
+      - run: meson build && ninja -C build && meson test -C build
